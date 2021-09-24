@@ -15,19 +15,21 @@ names = {'Sep 26': 'garaz-', 'Sep 5': 'na-kupko-', 'Sep 19': 'do-karanteny-', 'A
 
 files = os.listdir(new_dir)
 
-for index, file in enumerate(files):
+index = 0
+current_file_date = ''
+
+for file in files:
     file_date = ' '.join(time.ctime(os.path.getmtime(file)).split()[1:3])
-    try:
-        if file_date != current_file_date:
-            index = 1
-    except NameError:
-            pass
-
-    current_file_date = file_date
-    
     if file_date in names.keys():
-        print(''.join([f'{names[file_date]}{index}', '.mp4']))
+        if file_date != current_file_date:
+            index = 0
 
+        index = int(index) + 1
+        index = f'0{index}' if index < 10 else index
+        current_file_date = file_date
+        new_file_name = f'{names[file_date]}{index}.mp4'
 
-        # os.rename(os.path.join(my_dir, file), os.path.join(my_dir, ''.join([f'{names[file_date]}{index}', '.mp4'])))
+        os.rename(os.path.join(my_dir, file), os.path.join(my_dir, new_file_name))
+
+print(os.listdir())
 
