@@ -13,7 +13,9 @@ def get_prime_numbers(up_to_number):
         return {2, 3}
     else:
         prime_numbers = {2, 3}
-        for number in range(5, up_to_number + 1):
+        odd_numbers = [number for number in range(5, up_to_number + 1)
+                       if number % 2 != 0]
+        for number in odd_numbers:
             divisions = 0
             for div_num in range(2, round(number / 3) + 1):
                 if number % div_num == 0:
